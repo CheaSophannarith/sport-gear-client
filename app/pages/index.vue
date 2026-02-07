@@ -86,14 +86,39 @@
       </div>
     </section>
 
-    <!-- Rest of the content -->
-    <section class="w-full px-4 md:px-8 py-12">
-      <h2 class="text-3xl font-bold text-gray-900 mb-6">
-        Welcome to Sport Gear
+    <!-- Categories Section -->
+    <section class="w-full px-4 md:px-8 py-6">
+      <h2 class="text-3xl font-bold text-green-400 mb-6 uppercase">
+        WELCOME TO FII GEAR
       </h2>
-      <p class="text-gray-600">
-        Your one-stop shop for premium sports equipment and gear.
-      </p>
+      <!-- Popular Categories -->
+      <div>
+        <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider">
+          Popular Categories
+        </h3>
+        <div class="space-y-2">
+          <NuxtLink
+            v-for="category in categories"
+            :key="category.id"
+            :to="`/${category.slug}`"
+            class="flex items-center gap-3 py-2"
+          >
+            <span class="text-xl md:text-2xl lg:text-3xl font-black text-black uppercase">
+              {{ category.name }}
+            </span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 text-black"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </NuxtLink>
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -108,6 +133,7 @@ import Autoplay from "embla-carousel-autoplay";
 import type { EmblaCarouselType } from "embla-carousel";
 
 const { carousels, fetchCarousels } = useCarousels();
+const { categories, fetchCategories } = useCategories();
 
 // Embla API and current index
 const emblaApi = ref<EmblaCarouselType | null>(null);
@@ -135,8 +161,9 @@ const scrollTo = (index: number) => {
   }
 };
 
-// Fetch carousels on mount
+// Fetch data on mount
 onMounted(() => {
   fetchCarousels();
+  fetchCategories();
 });
 </script>
