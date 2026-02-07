@@ -6,6 +6,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/eslint', '@nuxt/fonts', 'shadcn-nuxt'],
   css: ['~/assets/css/tailwind.css'],
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.API_BASE_URL || 'http://sport-gear.test'
+    }
+  },
   vite: {
     plugins: [
       tailwindcss(),
