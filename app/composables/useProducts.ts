@@ -1,8 +1,10 @@
-import type { Product } from '~/types/product'
+import type { Product, PaginationMeta } from '~/types/product'
 
 export const useProducts = () => {
   const config = useRuntimeConfig()
   const categoryProducts = ref<Record<string, Product[]>>({})
+  const products = ref<Product[]>([])
+  const meta = ref<PaginationMeta | null>(null)
   const loading = ref(false)
   const error = ref<string | null>(null)
 
@@ -24,10 +26,37 @@ export const useProducts = () => {
     }
   }
 
+  const fetchProductsByCategory = async (slug: string, page = 1, filters: Record<string, any> = {}) => {
+    loading.value = true
+    error.value = null
+
+    try {
+      const response = await $fetch<{
+        data: { data: Product[] }
+        meta: PaginationMeta
+      }>(
+        `${config.public.apiBase}/api/v1/products/${slug}`,
+        { params: { page, ...filters } }
+      )
+      products.value = response.data.data
+      meta.value = response.meta
+    } catch (err) {
+      error.value = `Failed to fetch products for ${slug}`
+      console.error(`Error fetching products for ${slug}:`, err)
+      products.value = []
+      meta.value = null
+    } finally {
+      loading.value = false
+    }
+  }
+
   return {
     categoryProducts,
+    products,
+    meta,
     loading,
     error,
-    fetchFeaturedProducts
+    fetchFeaturedProducts,
+    fetchProductsByCategory
   }
 }

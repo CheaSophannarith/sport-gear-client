@@ -9,7 +9,7 @@
 
       <!-- Desktop Categories Navigation -->
       <nav class="hidden lg:flex items-center gap-4 xl:gap-8 flex-1 justify-center">
-        <NuxtLink v-for="category in categories" :key="category.id" :to="`/${category.slug}`"
+        <NuxtLink v-for="category in categories" :key="category.id" :to="`/items/${category.slug}`"
           class="text-gray-800 no-underline font-medium text-sm xl:text-base hover:text-green-400 transition-colors whitespace-nowrap"
           active-class="text-green-600 font-semibold">
           {{ category.name }}
@@ -99,7 +99,7 @@
         class="lg:hidden fixed left-0 right-0 top-16 sm:top-18 md:top-20 bg-white z-40 overflow-y-auto shadow-lg border-b border-gray-200 max-h-[calc(100vh-4rem)] sm:max-h-[calc(100vh-4.5rem)] md:max-h-[calc(100vh-5rem)]">
         <nav class="flex flex-col p-4 space-y-1">
           <!-- Categories -->
-          <NuxtLink v-for="category in categories" :key="category.id" :to="`/${category.slug}`"
+          <NuxtLink v-for="category in categories" :key="category.id" :to="`/items/${category.slug}`"
             class="text-gray-800 no-underline font-medium text-base hover:text-green-400 hover:bg-gray-50 transition-colors py-3 px-4 rounded-lg"
             active-class="text-green-600 font-semibold bg-green-50" @click="mobileMenuOpen = false">
             {{ category.name }}

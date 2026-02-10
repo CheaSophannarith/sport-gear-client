@@ -57,7 +57,7 @@
           Popular Categories
         </h3>
         <div class="space-y-2">
-          <NuxtLink v-for="category in categories" :key="category.id" :to="`/${category.slug}`"
+          <NuxtLink v-for="category in categories" :key="category.id" :to="`/items/${category.slug}`"
             class="group flex items-center gap-3 py-2">
             <span
               class="text-xl md:text-2xl lg:text-3xl font-black text-black uppercase transition-all duration-300 group-hover:bg-linear-to-r group-hover:from-green-400 group-hover:via-blue-500 group-hover:to-purple-600 group-hover:bg-clip-text group-hover:text-transparent">

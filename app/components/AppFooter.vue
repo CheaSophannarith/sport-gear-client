@@ -66,7 +66,7 @@
           <ul class="space-y-1.5 md:space-y-2">
             <li v-for="category in categories" :key="category.id">
               <NuxtLink
-                :to="`/${category.slug}`"
+                :to="`/items/${category.slug}`"
                 class="text-xs sm:text-sm hover:text-green-500 transition-colors block py-1"
               >
                 {{ category.name }}
