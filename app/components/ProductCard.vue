@@ -2,7 +2,7 @@
   <div
     class="group relative bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
     <!-- Product Image with Aspect Ratio -->
-    <NuxtLink :to="`/product/${product.slug}`" class="block relative overflow-hidden bg-gray-100">
+    <NuxtLink :to="`/item-detail/${product.id}`" class="block relative overflow-hidden bg-gray-100">
       <div class="w-full aspect-square">
         <img :src="product.featured_image" :alt="product.name"
           class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
@@ -23,7 +23,7 @@
 
     <!-- Product Details -->
     <div class="p-4">
-      <NuxtLink :to="`/product/${product.slug}`">
+      <NuxtLink :to="`/item-detail/${product.id}`">
         <h3
           class="text-sm md:text-base font-semibold text-gray-800 mb-2 line-clamp-2 hover:text-green-400 transition-colors min-h-[2.5rem]">
           {{ product.name }}

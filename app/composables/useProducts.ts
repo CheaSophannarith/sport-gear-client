@@ -1,9 +1,10 @@
-import type { Product, PaginationMeta } from '~/types/product'
+import type { Product, PaginationMeta, ProductDetail } from '~/types/product'
 
 export const useProducts = () => {
   const config = useRuntimeConfig()
   const categoryProducts = ref<Record<string, Product[]>>({})
   const products = ref<Product[]>([])
+  const productDetail = ref<ProductDetail | null>(null)
   const meta = ref<PaginationMeta | null>(null)
   const loading = ref(false)
   const error = ref<string | null>(null)
@@ -50,13 +51,33 @@ export const useProducts = () => {
     }
   }
 
+  const fetchProductDetail = async (id: number) => {
+    loading.value = true
+    error.value = null
+
+    try {
+      const response = await $fetch<ProductDetail>(
+        `${config.public.apiBase}/api/v1/products-details/${id}`
+      )
+      productDetail.value = response
+    } catch (err) {
+      error.value = `Failed to fetch product details for ID ${id}`
+      console.error(`Error fetching product details for ID ${id}:`, err)
+      productDetail.value = null
+    } finally {
+      loading.value = false
+    }
+  }
+
   return {
     categoryProducts,
     products,
+    productDetail,
     meta,
     loading,
     error,
     fetchFeaturedProducts,
-    fetchProductsByCategory
+    fetchProductsByCategory,
+    fetchProductDetail
   }
 }
